@@ -1,0 +1,18 @@
+class User (label: 'User') {
+    Long id;
+    String name (label:'Name', length:'100');
+    String login (label:'Login', length:'100');
+    String password (label:'Password', length:'100', type: 'password');
+    RoleEnum role;
+    List<City> cities (label:'Cities', composition:'true', manyToMany: 'true', main:'true');
+}
+
+enum RoleEnum (fileName: 'Role.java') {
+    ADMIN (id: '1', description: 'Administrator');
+    USER (id: '2', description: 'User');
+}
+
+class City (label: 'City') {
+    String name (label: 'Name');
+    String state (label: 'State');
+}

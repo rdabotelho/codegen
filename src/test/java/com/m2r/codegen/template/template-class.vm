@@ -1,0 +1,19 @@
+package com.m2r.boteutils.codegen.out;
+
+class $domain.name {
+
+#foreach( $attribute in $domain.attributes )
+    private $attribute.type $attribute.name;
+#end
+
+#foreach( $attribute in $domain.attributes )
+    public $attribute.type get${attribute.name.toPascalCase()}() {
+        return $attribute.name;
+    }
+
+    public void set${attribute.name.toPascalCase()}($attribute.type id) {
+        this.$attribute.name = $attribute.name;
+    }
+
+#end
+}
