@@ -372,36 +372,36 @@ class DomainAttribute {
 
 ###### StringWrapper
 
-Helper class to assist in the transformation of string values.
+Helper class to assist in the Transformstion of string values.
 
 ```
 class StringWrapper {
 
-    // Obtém o valor sem transformação.
+    // Gets the value without transformation.
     String getValue();
 
-    // Transforma: NomeAtributo -> nomeAtributo.
+    // Transforms: NameAttribute -> nameAttribute.
     String toCamelCase();
 
-    // Transforma: nomeAtributo -> NomeAtributo.
+    // Transforms: nameAttribute -> NameAttribute.
     String toPascalCase();
 
-    // Transforma: nomeAtributo -> nome_atributo.
+    // Transforms: nameAttribute -> name_attribute.
     String toSnakeLowerCase();
 
-    // Transforma: nomeAtributo -> NOME_ATRIBUTO.
+    // Transforms: nameAttribute -> Name_Attribute.
     String toSnakeUpperCase();
 
-    // Transforma: nomeAtributo -> nome-atributo.
+    // Transforms: nameAttribute -> name-attribute.
     String toKebabLowerCase();
 
-    // Transforma: nomeAtributo -> NOME-ATRIBUTO.
+    // Transforms: nameAttribute -> Name-Attribute.
     String toKebabUpperCase();
 
-    // Transforma: NomeAtributo -> nomeatributo.
+    // Transforms: NameAttribute -> nameattribute.
     String toLowerCase();
 
-    // Transforma: NomeAtributo -> NOMEATRIBUTO.
+    // Transforms: NameAttribute -> NameAttribute.
     String toUpperCase();
 
 }
@@ -414,16 +414,16 @@ Class that defined the value for each defined parameter.
 ```bash
 class ParamValue {
 
-    // Obtém o valor quando for uma lista de StringWrapper.
+    // Gets the value when it is a list of StringWrapper.
     List<StringWrapper> getValues();
 
-    // Obtém o valor quando for um StringWrapper.
+    // Gets the value when it is a StringWrapper.
     StringWrapper getValue();
 
-    // Obtém o valor quando for um StringWrapper com um valor default.
+    // Gets the value when it is a StringWrapper with a default value.
     StringWrapper getValue(String def);
 
-    // Checa se um determinado valor existe na lista de StringWrapper.
+    // Checks whether a given value exists in the StringWrapper list.
     boolean hasValue(String value);
 
 }
