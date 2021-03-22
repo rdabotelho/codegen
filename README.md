@@ -347,7 +347,7 @@ class DomainAttribute {
     StringWrapper getInput();
     StringWrapper getMultiple();
 
-    // helper methods to o velocity
+    // helper methods to the velocity
     String ifFirst(String text, String def);
     String ifLast(String text, String def);
     String ifLast(String text, String def);
@@ -369,7 +369,7 @@ class DomainAttribute {
 
 ###### StringWrapper
 
-Helper class to assist in the Transformstion of string values.
+Helper class to assist in the transformstion of string values.
 
 ```
 class StringWrapper {
