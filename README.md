@@ -241,9 +241,6 @@ class DomainList {
 
     StringWrapper projectName;
     List<Domain> domains;
-    StringWrapper projectName;
-    List<Domain> domains;
-
     Domain getDomainByName(String name);
 }
 ```
