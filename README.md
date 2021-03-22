@@ -222,7 +222,7 @@ enum Name ([label]) {
 
 - ***label:*** Defines the label for an input.
 
-###### 6 - Parâmetros aceito na definição de um atributo de uma enumeração:
+###### 6 - Parameters accepted when defining an attribute of an enumeration:
 
 - ***id:*** Defines the value code.
 
