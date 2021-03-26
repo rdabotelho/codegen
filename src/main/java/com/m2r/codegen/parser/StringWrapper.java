@@ -86,6 +86,16 @@ public class StringWrapper {
         return value.substring(0, 1).toLowerCase() + value.substring(1);
     }
 
+    public String toPath() {
+        if (value == null) return null;
+        return getValue().replaceAll("\\.", "/");
+    }
+
+    public String toPackage() {
+        if (value == null) return null;
+        return getValue().replaceAll("/", ".");
+    }
+
     @Override
     public String toString() {
         return value;

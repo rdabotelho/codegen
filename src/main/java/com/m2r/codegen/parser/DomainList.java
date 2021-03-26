@@ -7,7 +7,7 @@ public class DomainList {
 
     private StringWrapper projectName;
     private List<Domain> domains = new ArrayList<>();
-    private String basePackage;
+    private StringWrapper basePackage;
 
     public StringWrapper getProjectName() {
         return projectName;
@@ -34,11 +34,11 @@ public class DomainList {
         return null;
     }
 
-    public String getBasePackage() {
+    public StringWrapper getBasePackage() {
         return basePackage;
     }
 
-    public void setBasePackage(String basePackage) {
+    public void setBasePackage(StringWrapper basePackage) {
         this.basePackage = basePackage;
     }
 

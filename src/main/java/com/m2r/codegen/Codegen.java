@@ -29,7 +29,7 @@ public class Codegen {
 
             DomainList context = new DomainList();
             context.setProjectName(StringWrapper.of(projectName));
-            context.setBasePackage(basePackage);
+            context.setBasePackage(StringWrapper.of(basePackage));
             for (File scriptFile : scriptFiles) {
                 Reader reader = new FileReader(scriptFile);
                 DomainList domainList = ScriptParser.parse(reader);
@@ -44,7 +44,7 @@ public class Codegen {
             // Global scope
             for (Template template : templates) {
                 if (GLOBAL_SCOPE.equals(template.getScope())) {
-                    ScriptFields scriptFields = parseScriptFields(template, null);
+                    ScriptFields scriptFields = parseScriptFields(template, context, null);
                     mergeTemplate(template, context, null, scriptFields);
                 }
             }
@@ -72,7 +72,7 @@ public class Codegen {
                         }
                     }
                     if (domain.getType().toString().equals(template.getScope())) {
-                        ScriptFields scriptFields = parseScriptFields(template, domain);
+                        ScriptFields scriptFields = parseScriptFields(template, context, domain);
                         mergeTemplate(template, context, domain, scriptFields);
                     }
                 }
@@ -85,7 +85,7 @@ public class Codegen {
 
     }
 
-    private ScriptFields parseScriptFields(Template template, Domain domain) {
+    private ScriptFields parseScriptFields(Template template, DomainList context, Domain domain) {
         Template templateScriptFields = new Template();
         String tempDir = System.getProperty("java.io.tmpdir");
         String fileName = "tmpScriptFields.vm";
@@ -93,23 +93,23 @@ public class Codegen {
         templateScriptFields.setFileName(fileName);
         File tempFile = new File(tempDir, fileName);
         try {
-            String script = String.format("%s;#if(%s)true#{else}false#{end}", template.getOutputFileName(), template.getCreateIf());
+            String script = String.format("%s;%s;#if(%s)true#{else}false#{end}", template.getOutputDir(), template.getOutputFileName(), template.getCreateIf());
             Files.write(tempFile.toPath(), script.getBytes());
             StringWriter writer = new StringWriter();
-            mergeTemplate(templateScriptFields, null, domain, writer);
+            mergeTemplate(templateScriptFields, context, domain, writer);
             return new ScriptFields(writer.toString());
         }
         catch (Exception e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
         }
-        return new ScriptFields(String.format("%s.txt;%s", domain.getName(), "true"));
+        return new ScriptFields(String.format("%s;%s.txt;%s", template.getOutputDir(), domain.getName(), "true"));
     }
 
     private void mergeTemplate(Template template, DomainList context, Domain domain, ScriptFields scriptFields) throws Exception {
         if (scriptFields.createIf.equals("false")) {
             return;
         }
-        File file = new File(template.getOutputDir(), scriptFields.fileName);
+        File file = new File(scriptFields.dir, scriptFields.fileName);
         if (template.getStartEvent() != null) {
             if (!template.getStartEvent().on(template, domain, file)) {
                 return;
@@ -143,13 +143,15 @@ public class Codegen {
     }
 
     static class ScriptFields {
+        String dir;
         String fileName;
         String createIf;
 
         public ScriptFields(String strFields) {
             String[] fields = strFields.split(";");
-            fileName = fields[0];
-            createIf = fields[1];
+            dir = fields[0];
+            fileName = fields[1];
+            createIf = fields[2];
         }
 
     }

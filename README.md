@@ -232,16 +232,16 @@ enum Name ([label]) {
 
 ### Domain structure for making the templates
 
-###### DomainList
+###### Context
 
 Class that represents the context of the generation where all model classes and enumerations are defined in the script file.
 
 ```
-class DomainList {
+class Context {
 
     StringWrapper projectName;
     List<Domain> domains;
-    String basePackage;
+    StringWrapper basePackage;
     Domain getDomainByName(String name);
 }
 ```
@@ -401,6 +401,12 @@ class StringWrapper {
 
     // Transforms: NameAttribute -> NameAttribute.
     String toUpperCase();
+
+    // Transforms: com.m2r.example -> com/m2r/example.
+    String toPath();
+
+    // Transforms: com/m2r/example -> com.m2r.example.
+    String toPackage();
 
 }
 ```
